@@ -1,0 +1,47 @@
+# generate key
+gpg --gen-key
+
+# generate revokation certication
+gpg --gen-revoke my_email@address.com
+
+# export public key to send someone
+gpg --export --armor my_email@example.com
+
+# import key from someone (not from trust party)
+gpg --import name_of_pub_key_file
+
+# to use key properly, we must sign it into trust
+gpg --sign-key email@example.com
+
+# print fingerprint of public key
+gpg --fingerprint your_email@address.com
+
+# show all keys in your pc
+gpg --list-keys
+
+# update key
+gpg --refresh-keys
+gpg --keyserver key_server --refresh-keys
+
+# search someone's key from key server (eg: pgp.mit.edu)
+gpg --keyserver pgp.mit.edu  --search-keys search_parameters
+
+# public key to key server
+gpg --send-keys --keyserver pgp.mit.edu key_id
+
+# encrypt <filename> for user uid1, uid2
+gpg --armor --recipient uid1 --recipient uid2 -e <filename>
+
+# create signature for <filename>
+gpg --clearsign <filename>
+# verify signature from <filename>
+gpg --verfy <filename>
+
+# signing and encrypting
+gpg --armor --recipient uid -e --sign <filename>
+# decrypt
+gpg --decrypt <filename>
+
+# encrypt with symmetric key
+gpg -c --cipher-algo --armor aes <filename>
+gpg --decrypt <filename>
